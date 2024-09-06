@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.learn.springb3.dto.UserDTO;
 import com.learn.springb3.service.UserService;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -27,10 +27,10 @@ public class UserController {
 
     private final UserService userService;
 
-    @ApiOperation("Find user by ID")
+    @Operation(description = "Find user by ID")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "User found"),
-            @ApiResponse(code = 204, message = "No Content")
+            @ApiResponse(responseCode  = "200", description  = "User found"),
+            @ApiResponse(responseCode  = "204", description  = "No Content")
     })
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findUserById(@PathVariable("id") Integer id) {
@@ -40,10 +40,10 @@ public class UserController {
         return userDTO != null ? ResponseEntity.ok(userDTO) : ResponseEntity.noContent().build();
     }
 
-    @ApiOperation("Find all users")
+    @Operation(description = "Find all users")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Users found"),
-            @ApiResponse(code = 204, message = "No Content")
+            @ApiResponse(responseCode  = "200", description  = "Users found"),
+            @ApiResponse(responseCode  = "204", description  = "No Content")
     })
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAllUsers() {
@@ -53,10 +53,10 @@ public class UserController {
         return users.isEmpty() ?  ResponseEntity.noContent().build() : ResponseEntity.ok(users) ;
     }
 
-    @ApiOperation("Find users created today")
+    @Operation(description = "Find users created today")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Users found"),
-            @ApiResponse(code = 204, message = "No Content")
+            @ApiResponse(responseCode  = "200", description  = "Users found"),
+            @ApiResponse(responseCode  = "204", description  = "No Content")
     })
     @GetMapping("/created-today")
     public ResponseEntity<List<UserDTO>> findUsersCreatedToday() {
@@ -66,10 +66,10 @@ public class UserController {
         return users.isEmpty() ? ResponseEntity.noContent().build() :  ResponseEntity.ok(users);
     }
     
-    @ApiOperation("Find users created by year")
+    @Operation(description = "Find users created by year")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Users found"),
-            @ApiResponse(code = 204, message = "No Content")
+            @ApiResponse(responseCode  = "200", description  = "Users found"),
+            @ApiResponse(responseCode  = "204", description  = "No Content")
     })
     @GetMapping("/created-by-year/{year}")
     public ResponseEntity<List<UserDTO>> findUsersCreatedByYear(@PathVariable("year") Integer year) {

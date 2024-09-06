@@ -1,41 +1,35 @@
 package com.learn.springb3.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
 
 
 @Configuration
-@EnableSwagger2
-@EnableWebMvc
 public class SwaggerConfig {
 
-   @Bean
-   Docket api() {           
-        return new Docket(DocumentationType.SWAGGER_2)
-        		.apiInfo(apiInfo())
-                .select()                                
-  	            .apis(RequestHandlerSelectors.basePackage("com.learn.springb3.controller"))              
-  	            .paths(PathSelectors.any())          
-                .build();
-    }
-   
-   private ApiInfo apiInfo() {
-	    return new ApiInfoBuilder().title("API SpringBoot 3").version("0.0.1")
-	            .description("SpringBoot 3")
-	            .build();
-   }
+  @Bean
+  public OpenAPI defineOpenApi() {
+       Server server = new Server();
+       server.setUrl("http://localhost:8080");
+       server.setDescription("Development");
 
-   public InternalResourceViewResolver defaultViewResolver() {
-     return new InternalResourceViewResolver();
+       Contact myContact = new Contact();
+       myContact.setName("Jane Doe");
+       myContact.setEmail("your.email@gmail.com");
+
+       Info information = new Info()
+               .title("API SpringBoot 3")
+               .version("0.0.1")
+               .description("TSpringBoot 3")
+               .contact(myContact);
+       return new OpenAPI().info(information).servers(List.of(server));
    }
+  
 }
