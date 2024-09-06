@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.18</version>
+    <version>3.3.2</version>
   </parent>
   <groupId>com</groupId>
   <artifactId>springb3</artifactId>
@@ -14,7 +14,7 @@
   <description>Srping Boot 3 Maven</description>
   
   <properties>
-     <java.version>11</java.version>
+     <java.version>17</java.version>
 	 <lombok-version>1.18.30</lombok-version>
 	 <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
   </properties>
