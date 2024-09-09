@@ -15,6 +15,7 @@ import com.learn.springb3.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import java.util.Arrays;
 
 @Service("userManagerService")
 @RequiredArgsConstructor
@@ -22,7 +23,9 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UserManagerServiceImpl implements UserManagerService {
 
-    private final ApplicationEventPublisher eventPublisher;
+    private static final String REGEX = ",";
+	private static final String CLIENT = "CLIENT";
+	private final ApplicationEventPublisher eventPublisher;
     private final UserService userService;
     
 	/**
@@ -39,9 +42,13 @@ public class UserManagerServiceImpl implements UserManagerService {
 		if(Optional.ofNullable(userService.findByEmail(userDTO.getEmail())).isPresent()) {
 			throw new BussinesException("The email already exists");
 		}
-		
+
 		UserDTO userDTOCreated = userService.save(userDTO);
-        eventPublisher.publishEvent(new UserCreatedEvent(this, userDTOCreated)); 
+
+        if(Arrays.stream(userDTO.getTags().split(REGEX)).anyMatch(CLIENT::equalsIgnoreCase)){
+		   eventPublisher.publishEvent(new UserCreatedEvent(this, userDTOCreated)); 
+		}
+       
         log.info("Entering newUser method with userDTO: {}", userDTO);
         return userDTOCreated;   
 	}

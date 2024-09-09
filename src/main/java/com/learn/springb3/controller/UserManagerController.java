@@ -18,9 +18,9 @@ import com.learn.springb3.exception.BussinesException;
 import com.learn.springb3.exception.NotExistsException;
 import com.learn.springb3.service.UserManagerService;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -33,10 +33,10 @@ public class UserManagerController {
 
     private final UserManagerService userManagerService;
 
-    @ApiOperation("Create a new user")
+    @Operation(summary =  "Create a new user")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "User created successfully"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "500")
     })
     @PostMapping
     public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO userDTO) throws BussinesException {
@@ -46,10 +46,10 @@ public class UserManagerController {
         return ResponseEntity.ok(userCreated);
     }
     
-    @ApiOperation("Delete a user")
+    @Operation(summary = "Delete a user")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "User created successfully"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "500")
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)

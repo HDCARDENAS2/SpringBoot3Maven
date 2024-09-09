@@ -3,9 +3,6 @@ package com.learn.springb3.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +41,10 @@ public class UserEntity implements Serializable {
 	private String name;
     @Column(name = "email", nullable = false)
 	private String email;
+    @Column(name = "birth_date", nullable = false)
+    private Date birthDate;
+    @Column(name = "tags", length = 200,  nullable = false)
+    private String tags;
     @Column(name = "created_at", nullable = false, length = 35)
     private Date createdAt;
     @PrePersist

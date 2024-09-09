@@ -31,6 +31,11 @@ public class UserDTO implements Serializable {
 	@NotEmpty
 	@Size(max=30)
 	private String email;
+	@JsonFormat(pattern="yyyy-MM-dd")
+    private Date birthDate;
+	@NotEmpty
+	@Size(max=200)
+	private String tags;
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
 	
