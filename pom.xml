@@ -26,6 +26,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -111,7 +117,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 	</dependencies>
 
 	<build>
@@ -188,18 +193,51 @@
 				</executions>
 				<configuration>
 					<excludes>
-					  <exclude>com/learn/springb3/dto/**</exclude>
-					  <exclude>com/learn/springb3/entity/**</exclude>
-					  <exclude>com/learn/springb3/config/**</exclude>
-					  <exclude>com/learn/springb3/event/**</exclude>
-					  <exclude>com/learn/springb3/repository/**</exclude>
-					  <exclude>com/learn/springb3/mapper/**</exclude>
-					  <exclude>com/learn/springb3/exception/**</exclude>
-					  <exclude>com/learn/springb3/handler/**</exclude>
-					  <exclude>com/learn/springb3/SpringBoot3.class</exclude>
+						<exclude>com/learn/springb3/dto/**</exclude>
+						<exclude>com/learn/springb3/entity/**</exclude>
+						<exclude>com/learn/springb3/config/**</exclude>
+						<exclude>com/learn/springb3/event/**</exclude>
+						<exclude>com/learn/springb3/repository/**</exclude>
+						<exclude>com/learn/springb3/mapper/**</exclude>
+						<exclude>com/learn/springb3/exception/**</exclude>
+						<exclude>com/learn/springb3/handler/**</exclude>
+						<exclude>com/learn/springb3/SpringBoot3.class</exclude>
 					</excludes>
-				  </configuration>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>3.0.0</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<ant antfile="deployJAR.xml">
+											<target name="excuteJAR" />
+										</ant>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

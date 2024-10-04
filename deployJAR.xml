@@ -1,0 +1,23 @@
+<project name="DEPLOY_JAR" basedir=".">
+  
+	<property name="server-port" value="8081" />
+
+   <target name="excuteJAR" >
+
+		<delete>
+			
+			<fileset dir="${basedir}/log">
+		    	<include name="app.log" />
+			</fileset>
+
+
+
+		</delete>
+
+
+		
+   </target>
+
+
+   
+</project>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Properties>
+        <Property name="basePath">log</Property>
+    </Properties>  
+      
+    <Appenders>
+         
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{DATE} [%t] %-5p %c{1}:%L [%X{appName},%X{traceId},%X{spanId},%X{spanExportable}] -userName=%X{req.userName} requestedSessionId=%X{req.requestedSessionId} remoteHost=%X{req.remoteHost} requestURI=%X{req.requestURI} - %m%n%throwable"/>
+        </Console>
+
+        <File name="appLog" fileName="${basePath}/app.log">
+            <PatternLayout>
+              <Pattern>%d{DATE} [%t] %-5p %c{1}:%L [%X{appName},%X{traceId},%X{spanId},%X{spanExportable}] -userName=%X{req.userName} requestedSessionId=%X{req.requestedSessionId} remoteHost=%X{req.remoteHost} requestURI=%X{req.requestURI} - %m%n%throwable</Pattern>
+            </PatternLayout>
+         </File>
+         
+    </Appenders>
+    
+    <Loggers>
+            
+        <Root level="info">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="appLog" />     
+        </Root>
+      
+    </Loggers>
+    
+</Configuration>
